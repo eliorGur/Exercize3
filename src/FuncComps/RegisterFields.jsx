@@ -7,53 +7,63 @@ import SendIcon from '@mui/icons-material/Send';
 export default function RegisterFields(props) {
     const cities = ['Jerusalem', 'Tel Aviv', 'Haifa', 'Beersheba', 'Netanya', 'Eilat', 'Ashdod', 'Rishon LeZion'];
 
-    //flag
-    // const [validFildes, setValidFildes] = useState(true);
+    const [user, setUser] = useState({
+        userName: '',
+        userPassword: '',
+        userImage: '',
+        userFirstName: '',
+        userLastName: '',
+        userEmail: '',
+        UserDofBirth: '',
+        userCity: '',
+        userStreet: '',
+        userHomeNum: '',
+    });
 
-    const [userName, setUserName] = useState('');
-    const [userNameError, setUserNameError] = useState('');
-
-    const [password, setPassword] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-
-    const [password2, setPassword2] = useState('');
-    const [passwordError2, setPasswordError2] = useState('');
+    const [userError, setUserError] = useState({}); //user.name:true|false, ...כדי לגשת
+    const [userErrorMsg, setUserErrorMsg] = useState({});
 
 
     //validation for user name
-    const validateUserName = () => {
+    const validateUserName = (e) => {
+        let text = e.target.value;
         const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};:'",.<>\/?]{0,60}$/;
         // console.log('userName tset:',userName);
         // console.log(regex.test(userName));
-        if (!regex.test(userName)) {
-            setUserNameError('Invalid input! Only English letters, numbers, and specific special characters allowed. Maximum 60 characters.');
-            setUserName('');
+        if (!regex.test(text)) {
+            setUserError(prev => {return {...prev, userName: false,}})
+            setUserErrorMsg((prev)=>{return {...prev, userName:'Invalid input! Only English letters, numbers, and specific special characters allowed. Maximum 60 characters.' }});
         } else {
-            setUserNameError('');
+            setUser(prev => { return { ...prev, userName: text } });
+            setUserError(prev => {return {...prev, userName: true,}})
+            setUserErrorMsg('');
         }
     };
 
     //validation for password
-    const validatePassword = () => {
+    const validatePassword = (e) => {
+        let text = e.target.value;
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:'",.<>\/?]).{7,12}$/;
 
-        console.log('pass test: ', regex.test(password));
+        console.log('pass test: ', regex.test(text));
 
-        if (!regex.test(password)) {
-            setPasswordError('Invalid password! Password must contain between 7 and 12 characters, at least one special character, one uppercase letter, and one number.');
-            setPassword('');
+        if (!regex.test(text)) {
+            setUserError(prev => {return {...prev, userPassword: false,}})
+            setUserErrorMsg((prev)=>{return {...prev, userPassword:'Invalid password! Password must contain between 7 and 12 characters, at least one special character, one uppercase letter, and one number.'}});
         } else {
-            setPasswordError('');
+            setUser(prev => { return { ...prev, userPassword: text } });
+            setUserError(prev => {return {...prev, userPassword: true,}})
+            setUserErrorMsg('');
         }
     };
 
     //validation for second password input
-    const validatePassword2 = () => {
-        if (password2 !== password) {
-            setPasswordError2('Passwords are not the same. currecet your password');
-            setPassword2('');
+    const validatePassword2 = (e) => {
+        if (e.target.value !== user.userPassword) {
+            //setPasswordError2('Passwords are not the same. currecet your password');
+            //setPassword2('');
         } else {
-            setPasswordError2('');
+            //setPasswordError2('');
         }
     };
 
@@ -91,11 +101,10 @@ export default function RegisterFields(props) {
                         type="text"
                         variant="standard"
                         required
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
+                        value={user.userName}
                         onBlur={validateUserName}
-                        error={!!userNameError}
-                        helperText={userNameError}
+                        error={!userError.userName}
+                        helperText={userErrorMsg.userName}
                         inputProps={{ maxLength: 60 }}
                     />
                     <TextField
@@ -104,11 +113,10 @@ export default function RegisterFields(props) {
                         variant="standard"
                         color='secondary'
                         required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={user.userPassword}                        
                         onBlur={validatePassword}
-                        error={!!passwordError}
-                        helperText={passwordError}
+                        error={!userError.userPassword}
+                        helperText={userErrorMsg.userPassword}
                     />
 
                     <TextField
@@ -119,9 +127,8 @@ export default function RegisterFields(props) {
                         // autoComplete="current-password"
                         required
                         value={password2}
-                        onChange={(e) => setPassword2(e.target.value)}
                         onBlur={validatePassword2}
-                        error={!!passwordError2}
+                        error={!passwordError2}
                         helperText={passwordError2}
                     />
                     <br />
@@ -143,7 +150,7 @@ export default function RegisterFields(props) {
                         color='secondary'
                         required
                     //   value={firstName}
-                    // onChange={(e) => setUserName(e.target.value)}
+
                     // onBlur={validateUserName}
                     // error={!!userNameError}
                     // helperText={userNameError}
@@ -156,7 +163,7 @@ export default function RegisterFields(props) {
                         color='secondary'
                         required
                     //   value={lastName}
-                    // onChange={(e) => setUserName(e.target.value)}
+
                     // onBlur={validateUserName}
                     // error={!!userNameError}
                     // helperText={userNameError}
@@ -169,7 +176,7 @@ export default function RegisterFields(props) {
                         color='secondary'
                         required
                     //   value={lastName}
-                    // onChange={(e) => setUserName(e.target.value)}
+
                     // onBlur={validateUserName}
                     // error={!!userNameError}
                     // helperText={userNameError}
@@ -183,7 +190,7 @@ export default function RegisterFields(props) {
                         color='secondary'
                         required
                         //   value={lastName}
-                        // onChange={(e) => setUserName(e.target.value)}
+
                         // onBlur={validateUserName}
                         // error={!!userNameError}
                         // helperText={userNameError}
@@ -216,7 +223,7 @@ export default function RegisterFields(props) {
                         color='secondary'
                         required
                     //   value={firstName}
-                    // onChange={(e) => setUserName(e.target.value)}
+
                     // onBlur={validateUserName}
                     // error={!!userNameError}
                     // helperText={userNameError}
@@ -227,8 +234,8 @@ export default function RegisterFields(props) {
                         type="number"
                         variant="standard"
                         color='secondary'
-                        required         
-                        inputProps={{min:1}}        
+                        required
+                        inputProps={{ min: 1 }}
                     />
 
                     <br />
@@ -239,7 +246,7 @@ export default function RegisterFields(props) {
                         endIcon={<SendIcon />}
                         color="secondary"
                         onClick={registerUser}
-                        // disabled={}
+                    // disabled={}
                     >
                         Register
                     </Button>
