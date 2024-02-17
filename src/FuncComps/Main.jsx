@@ -1,49 +1,63 @@
+import React, { useState, useEffect } from 'react';
 
-import React from 'react';
 import Register from './Register';
 import RegisterFields from './RegisterFields';
-
-import { useState } from 'react';
+import Login from './Login';
+import Profile from './Profile';
+import EditDetails from './EditDetails';
+import SystemAdmin from './SystemAdmin';
 
 export default function Main() {
 
- const [usersList, setUsersList] = useState([])
+    const [usersList, setUsersList] = useState([])
 
- //gets user from child and adds it to the list
- const getUserFromChild =(user)=>{
+    //gets user from child and adds it to the list
+    const getUserFromChild = (user) => {
+        let newUsers = [...usersList, user];
+        // console.log('Main- updated user list', newUsers);
 
-    console.log('Main- new user:',user);
-    let newUsers=[...usersList, user];
-    console.log('Main- updated user list', newUsers);
+        //add to list
+        setUsersList(newUsers);
+    }
 
-    //add to list
-    setUsersList (newUsers);
- }
+    // Check local storage on component mount- only when the page loaded
+    useEffect(() => {
+        const usersFromLocalStorage = localStorage.getItem('usersList');
+        //debugger
+        if (usersFromLocalStorage) {
+            setUsersList(JSON.parse(usersFromLocalStorage));
+        }
+    }, []);
 
-//filter for delete 
-
- //func for admin login 
-//  function login(username, pass){
-//     if(is admin)
-//   }
+    //runs foreach update in the usersList
+    useEffect(() => {
+        localStorage.setItem('usersList', JSON.stringify(usersList));
+    }, [usersList]);
 
 
-//עבודה עם הלוקל סטורג
-// useEffect(()=>{
-//     //load all users from local
-//   },[])
- 
-//   useEffect(()=>{
-//     //update local storage
-//   },[usersList])
+
+    //func for admin login 
+    //  function login(username, pass){
+    //     if(is admin)
+    //   }
+
+    console.log('Main-return userslist:', usersList);
 
     return (
         <div>
-            {console.log('Main-return userslist:',usersList)}
+
             <Register usersList={usersList} />
-             {/* the input fields */} <br />
-             <RegisterFields send2Parent={getUserFromChild}/>
-             
+            <br />
+            <RegisterFields send2Parent={getUserFromChild} />
+
+            <Login users={usersList} />
+
+            <br /><br />
+            {/* <Profile/> */}
+
+            {/* <EditDetails/> */}
+
+            {/* <SystemAdmin/> */}
         </div>
     )
 }
