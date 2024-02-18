@@ -84,7 +84,6 @@ export default function RegisterFields(props) {
                 reader.readAsDataURL(file);
             }
             else {
-                console.log('bad input file');
                 setUserError(prev => ({ ...prev, userImage: true }));
                 setUserErrorMsg(prev => ({ ...prev, userImage: 'Invalid file format. Only JPG or JPEG files are allowed.' }));
             }
@@ -93,7 +92,7 @@ export default function RegisterFields(props) {
     };
 
     //validation for first name
-    const validateFirseName = (e) => {
+    const validateFirstName = (e) => {
 
         //check for the image: console.log(' reader.result: ', user.userImage);
 
@@ -215,11 +214,6 @@ export default function RegisterFields(props) {
 
     //creating user if all the inputs valid     
     const registerUser = () => {
-
-        //console.log('register func user:', user);
-        //console.log('register func userError:', userError);
-        //console.log('register func userErrorMsg:', userErrorMsg);
-
         //creating array of userError and user to check that all fileds were validated and aren't empty
         let validations = Object.values(userError);
         let userFildes = Object.values(user);
@@ -255,8 +249,7 @@ export default function RegisterFields(props) {
                 text: "Now you can login",
             });
             //send user obj to add it to users list
-            props.send2Parent(user);
-            debugger
+            props.send2Parent(user);            
             clearFileds();
         }
     }
@@ -349,7 +342,7 @@ export default function RegisterFields(props) {
                         required
                         value={user.userFirstName}
                         onChange={(e) => setUser({ ...user, userFirstName: e.target.value })}
-                        onBlur={validateFirseName}
+                        onBlur={validateFirstName}
                         error={userError.userFirstName}
                         helperText={userErrorMsg.userFirstName}
                     />

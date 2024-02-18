@@ -20,7 +20,7 @@ export default function Register() {
                 }}>
                     <HowToRegOutlinedIcon />
                 </Avatar>
-                <Typography compomemt='h'>Sing up</Typography>
+                <Typography compomemt='h'>Sign up</Typography>
             </Box>          
 
 

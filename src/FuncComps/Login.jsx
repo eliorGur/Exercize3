@@ -55,7 +55,6 @@ export default function Login(props) {
             debugger
             // Check if a user with the provided username and password exists
             let userExists = users.some(user => user.userName === userName.name && user.userPassword === password.pw);
-
             if (userExists) {
                 console.log('User with matching username and password exists.');
                 // rest of login logic here....****
@@ -101,7 +100,7 @@ export default function Login(props) {
                     helperText={userName.errMsg}
                     inputProps={{ maxLength: 60 }}
                 />
-
+                <br />
                 <TextField
                     label="Password"
                     type="password"

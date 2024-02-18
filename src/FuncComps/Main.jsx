@@ -9,7 +9,7 @@ import SystemAdmin from './SystemAdmin';
 
 export default function Main() {
 
-    const [usersList, setUsersList] = useState([])
+    const [usersList, setUsersList] = useState([]);
 
     //gets user from child and adds it to the list
     const getUserFromChild = (user) => {
@@ -20,7 +20,7 @@ export default function Main() {
         setUsersList(newUsers);
     }
 
-    // Check local storage on component mount- only when the page loaded
+    //Check local storage on component mount- only when the page loaded
     useEffect(() => {
         const usersFromLocalStorage = localStorage.getItem('usersList');
         //debugger
@@ -46,9 +46,9 @@ export default function Main() {
     return (
         <div>
 
-            <Register usersList={usersList} />
+            {/* <Register usersList={usersList} />
             <br />
-            <RegisterFields send2Parent={getUserFromChild} />
+            <RegisterFields send2Parent={getUserFromChild} /> */}
 
             <Login users={usersList} />
 
