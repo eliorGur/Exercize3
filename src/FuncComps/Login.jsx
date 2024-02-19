@@ -4,6 +4,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import Swal from 'sweetalert2';
 
 
 export default function Login(props) {
@@ -58,8 +59,6 @@ export default function Login(props) {
                 console.log('User with matching username and password exists.');
                 // save in session storage
                 sessionStorage.setItem('connectedUser',JSON.stringify(founduser));
-
-
             } else {
                 console.log('User with matching username and password does not exist in the array.');
             }
