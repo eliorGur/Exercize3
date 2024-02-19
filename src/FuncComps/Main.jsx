@@ -20,6 +20,10 @@ export default function Main() {
         setUsersList(newUsers);
     }
 
+    const getLoginUserDetails = (email,password) => {
+        
+    }
+
     //Check local storage on component mount- only when the page loaded
     useEffect(() => {
         const usersFromLocalStorage = localStorage.getItem('usersList');
@@ -46,9 +50,9 @@ export default function Main() {
     return (
         <div>
 
-            {/* <Register usersList={usersList} />
+            <Register usersList={usersList} />
             <br />
-            <RegisterFields send2Parent={getUserFromChild} /> */}
+            <RegisterFields send2Parent={getUserFromChild} />
 
             <Login users={usersList} />
 

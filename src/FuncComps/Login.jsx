@@ -53,11 +53,17 @@ export default function Login(props) {
         // Check if the users array is not empty
         if (users.length > 0) {
             debugger
+            console.log(users);
+            console.log(userName);
+            console.log(password);
             // Check if a user with the provided username and password exists
-            let userExists = users.some(user => user.userName === userName.name && user.userPassword === password.pw);
-            if (userExists) {
+            let founduser = users.find(user => user.userName == userName.name && user.userPassword == password.pw);//finds a user with the matching details
+            if (founduser) {
                 console.log('User with matching username and password exists.');
-                // rest of login logic here....****
+                // save in session storage
+                sessionStorage.setItem('connectedUser',JSON.stringify(founduser));
+
+
             } else {
                 console.log('User with matching username and password does not exist in the array.');
             }
