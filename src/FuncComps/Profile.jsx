@@ -6,12 +6,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 export default function Profile() {
-  let userInSession=sessionStorage.getItem(JSON.parse(connectedUser));
+  let userInSession=JSON.parse(sessionStorage.getItem('connectedUser'));
+  console.log(userInSession);
+  
+  
   return (
     <Card>
-      <CardContent>
+      
+      {/* <CardContent>
         <Typography variant="h5" component="div">
-          {name}
+          {userInSession}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
           Email: {email}
@@ -31,7 +35,7 @@ export default function Profile() {
         <Button variant="contained" onClick={onDisconnectClick}>
           Disconnect
         </Button>
-      </CardContent>
+      </CardContent> */}
     </Card>
   )
 }

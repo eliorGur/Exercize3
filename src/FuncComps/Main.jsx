@@ -57,7 +57,7 @@ export default function Main() {
             <Login users={usersList} />
 
             <br /><br />
-            {/* <Profile/> */}
+            <Profile/>
 
             {/* <EditDetails/> */}
 
