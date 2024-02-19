@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 export default function Profile() {
-  let user
+  let userInSession=sessionStorage.getItem(JSON.parse(connectedUser));
   return (
     <Card>
       <CardContent>
